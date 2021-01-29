@@ -9,7 +9,4 @@
     <li class="nav-item">
         <a class="nav-link {if $cur=='log'}active{/if}" href="{:$router->buildUrl('/ebcms/ucenter/admin/log/index')}">日志管理</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="javascript:M.open({url:'{:$router->buildUrl('/ebcms/ucenter/admin/config')}', title:'用户中心设置'});">系统设置</a>
-    </li>
 </ul>

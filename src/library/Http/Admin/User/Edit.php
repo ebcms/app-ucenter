@@ -28,28 +28,29 @@ class Edit extends Common
             'id' => $requestFilter->get('id', 0, ['intval']),
         ]);
 
-        $radio_option = [
-            [
-                'label' => '正常',
-                'value' => 1,
-            ], [
-                'label' => '禁止登陆',
-                'value' => 2,
-            ], [
-                'label' => '待审核',
-                'value' => 99,
-            ],
-        ];
         $form = new Builder('编辑用户信息');
         $form->addRow(
             (new Row())->addCol(
-                (new Col('col-md-8'))->addItem(
+                (new Col('col-md-3'))->addItem(
                     (new Hidden('id', $user['id'])),
                     (new Cover('头像', 'avatar', $user['avatar'], $router->buildUrl('/ebcms/admin/upload'))),
-                    (new Text('昵称', 'nickname', $user['nickname'])),
-                    (new Textarea('个人说明', 'introduction', $user['introduction'])),
                     (new Text('电话号码', 'phone', $user['phone'])),
-                    (new Radio('状态', 'state', $user['state']))->set('options', $radio_option)->set('inline', true)
+                    (new Radio('状态', 'state', $user['state']))->set('options', [
+                        [
+                            'label' => '正常',
+                            'value' => 1,
+                        ], [
+                            'label' => '禁止登陆',
+                            'value' => 2,
+                        ], [
+                            'label' => '待审核',
+                            'value' => 99,
+                        ],
+                    ])
+                ),
+                (new Col('col-md-9'))->addItem(
+                    (new Text('昵称', 'nickname', $user['nickname'])),
+                    (new Textarea('个人说明', 'introduction', $user['introduction']))
                 )
             )
         );

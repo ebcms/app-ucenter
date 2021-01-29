@@ -28,9 +28,8 @@
                 <th class="text-nowrap">用户ID</th>
                 <th class="text-nowrap">类型</th>
                 <th class="text-nowrap">IP</th>
-                <th class="text-nowrap">CONTEXT</th>
-                <th class="text-nowrap">USER_AGENT</th>
                 <th class="text-nowrap">记录时间</th>
+                <th class="text-nowrap">操作</th>
             </tr>
         </thead>
         <tbody>
@@ -39,10 +38,11 @@
                 <td>{$v.id}</td>
                 <td><a href="{:$router->buildUrl('/ebcms/ucenter/admin/user/index', ['user_id'=>$v['user_id']])}">{$v.user_id}</a></td>
                 <td>{$v.type}</td>
-                <td>{:long2ip($v['ip'])}</td>
-                <td class="text-nowrap text-truncate" style="max-width:300px;" title="{:htmlspecialchars($v['context'])}"><code>{:htmlspecialchars($v['context'])}</code></td>
-                <td>{$v.ua}</td>
+                <td>{$v['ip']}</td>
                 <td class="text-nowrap">{:date('Y-m-d H:i:s', $v['record_time'])}</td>
+                <td>
+                    <a href="javascript:M.open({url:'{:$router->buildUrl('/ebcms/ucenter/admin/log/detail', ['id'=>$v['id']])}', title:'日志详情'});">详情</a>
+                </td>
             </tr>
             {/foreach}
         </tbody>

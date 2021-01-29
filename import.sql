@@ -1,18 +1,3 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : localhost
-Source Server Version : 50726
-Source Host           : 127.0.0.1:3306
-Source Database       : test
-
-Target Server Type    : MYSQL
-Target Server Version : 50726
-File Encoding         : 65001
-
-Date: 2020-08-20 20:50:13
-*/
-
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
@@ -24,10 +9,14 @@ CREATE TABLE `prefix_ebcms_user_log` (
   `type` varchar(24) NOT NULL DEFAULT '' COMMENT '类型',
   `user_id` int(10) unsigned NOT NULL DEFAULT '0',
   `context` text,
+  `http_raw` text,
+  `ip` varchar(15) NOT NULL DEFAULT '' COMMENT 'ip',
+  `record_date` date DEFAULT '1970-01-01',
   `record_time` int(10) unsigned NOT NULL DEFAULT '0',
-  `ip` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `ua` varchar(255) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `record_date` (`record_date`),
+  KEY `user_id` (`user_id`),
+  KEY `ip` (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='会员日志表';
 
 -- ----------------------------
