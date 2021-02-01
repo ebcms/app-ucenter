@@ -34,6 +34,9 @@ class Index extends Common
                         $value['url'] &&
                         $value['icon']
                     ) {
+                        if (strpos($value['icon'], '<svg ') === 0) {
+                            $value['icon'] = 'data:image/svg+xml;base64,' . base64_encode($value['icon']);
+                        }
                         $menus->insert($value, $value['priority']);
                     }
                 }

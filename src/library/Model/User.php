@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Ebcms\Ucenter\Model;
 
+use Ebcms\App;
 use Ebcms\Database\Model;
+use Ebcms\Session;
 
 class User extends Model
 {
@@ -32,5 +34,31 @@ class User extends Model
                 $this->users[$value['id']] = $value;
             }
         }
+    }
+
+    public function login(int $id): bool
+    {
+        $this->getSession()->set('ucenter_user_id', $id);
+        return true;
+    }
+
+    public function logout(): bool
+    {
+        $this->getSession()->delete('ucenter_user_id');
+        return true;
+    }
+
+    public function getLoginId(): int
+    {
+        return (int)($this->getSession()->get('ucenter_user_id') ?: 0);
+    }
+
+    private function getSession(): Session
+    {
+        return App::getInstance()->execute(function (
+            Session $session
+        ): Session {
+            return $session;
+        });
     }
 }

@@ -9,32 +9,41 @@ use App\Ebcms\Ucenter\Model\User;
 use Ebcms\Router;
 use Psr\Http\Message\ResponseInterface;
 use Ebcms\FormBuilder\Builder;
+use Ebcms\FormBuilder\Col;
+use Ebcms\FormBuilder\Field\Text;
 use Ebcms\FormBuilder\Field\Textarea;
 use Ebcms\FormBuilder\Other\Cover;
+use Ebcms\FormBuilder\Row;
 use Ebcms\RequestFilter;
-use Ebcms\Session;
 
 class EditInfo extends Common
 {
 
     public function get(
         Router $router,
-        Session $session,
-        User $user
+        User $userModel
     ) {
-        $my = $user->get('*', $session->get('ucenter_user_id'));
+        $my = $userModel->get('*', [
+            'id' => $userModel->getLoginId(),
+        ]);
         $form = new Builder('修改个人信息');
-        $form->addItem(
-            (new Cover('头像', 'avatar', $my['avatar'], $router->buildUrl('/ebcms/ucenter/console/upload'))),
-            (new Textarea('个人简介', 'introduction', $my['introduction']))
+        $form->addRow(
+            (new Row())->addCol(
+                (new Col('col-md-3'))->addItem(
+                    (new Cover('头像', 'avatar', $my['avatar'], $router->buildUrl('/ebcms/ucenter/console/upload')))
+                ),
+                (new Col('col-md-9'))->addItem(
+                    (new Text('昵称', 'nickname', $my['nickname'])),
+                    (new Textarea('个人简介', 'introduction', $my['introduction']))
+                )
+            )
         );
-        return $this->html($form->__toString());
+        return $form;
     }
 
     public function post(
-        Session $session,
         User $userModel,
-        Log $log,
+        Log $logModel,
         RequestFilter $input
     ): ResponseInterface {
         $update = [];
@@ -44,14 +53,17 @@ class EditInfo extends Common
         if ($input->has('post.avatar')) {
             $update['avatar'] = $input->post('avatar');
         }
+        if (trim($input->post('nickname'))) {
+            $update['nickname'] = mb_substr(trim($input->post('nickname')), 0, 8);
+        }
         if ($update) {
             $userModel->update($update, [
-                'id' => $session->get('ucenter_user_id'),
+                'id' => $userModel->getLoginId(),
             ]);
         }
 
-        $log->record($session->get('ucenter_user_id'), '修改个人信息', $update);
+        $logModel->record($userModel->getLoginId(), 'edit_info', $update);
 
-        return $this->success('操作成功！', 'javascript:history.back(-2);');
+        return $this->success('操作成功！', 'javascript:history.go(-2);');
     }
 }

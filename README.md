@@ -1,2 +1,2 @@
-# app-ucenter
-用户中心
+# ucenter
+user center

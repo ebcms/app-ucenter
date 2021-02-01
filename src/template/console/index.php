@@ -113,7 +113,7 @@
                 <ul class="nav flex-column" id="leftnav">
                     {foreach $menus as $v}
                     <li class="nav-item">
-                        <a class="nav-link text-truncate py-3 px-4 font-weight-bold text-secondary" href="{$v.url}" target="{$v['target']??'main'}">{if isset($v['icon']) && $v['icon']}<span class="mr-2">{$v['icon']}</span>{/if}{$v.title}{if strlen($v['badge'])}<span class="badge badge-danger badge-pill ml-1">{$v['badge']}</span>{/if}</a>
+                        <a class="nav-link text-truncate py-3 px-4 font-weight-bold text-secondary" href="{$v.url}" target="{$v['target']??'main'}">{if isset($v['icon']) && $v['icon']}<span class="mr-2"><img src="{$v['icon']}" alt="" style="width:20px;height:20px;"></span>{/if}{$v.title}{if strlen($v['badge'])}<span class="badge badge-danger badge-pill ml-1">{$v['badge']}</span>{/if}</a>
                     </li>
                     {/foreach}
                 </ul>
@@ -154,7 +154,7 @@
             </style>
         </div>
         <div class="right">
-            <iframe src="" id="mainiframe" name="main" style="width:100%;height:100%;overflow:auto;display:block;" frameborder="0"></iframe>
+            <iframe src="{:$router->buildUrl('/ebcms/ucenter/console/home')}" id="mainiframe" name="main" style="width:100%;height:100%;overflow:auto;display:block;" frameborder="0"></iframe>
         </div>
     </div>
 </body>

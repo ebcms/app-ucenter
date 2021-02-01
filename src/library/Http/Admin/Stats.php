@@ -25,11 +25,11 @@ class Stats extends Common
         for ($i = 0; $i < $days; $i++) {
             $date = $month . '-' . str_pad((string)($i + 1), 2, '0', STR_PAD_LEFT);
             $reg[$date] = $logModel->count([
-                'type' => '注册',
+                'type' => 'reg',
                 'record_date' => $date,
             ]);
             $login[$date] = $logModel->count([
-                'type' => '登陆',
+                'type' => 'login',
                 'record_date' => $date,
             ]);
         }

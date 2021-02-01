@@ -31,6 +31,8 @@
                 <th>#</th>
                 <th>昵称</th>
                 <th>电话</th>
+                <th>金币</th>
+                <th>积分</th>
                 <th>状态</th>
                 <th>操作</th>
             </tr>
@@ -41,10 +43,14 @@
                 <td>{$v.id}</td>
                 <td>{$v.nickname}</td>
                 <td>{$v.phone}</td>
-                <td>{:$v['state']}</td>
+                <td>{$v.coin}</td>
+                <td>{$v.score}</td>
+                <td>{$v.state}</td>
                 <td>
                     <a href="{:$router->buildUrl('/ebcms/ucenter/admin/user/edit', ['id'=>$v['id']])}">编辑</a>
                     <a href="{:$router->buildUrl('/ebcms/ucenter/admin/log/index', ['user_id'=>$v['id']])}">日志</a>
+                    <a href="{:$router->buildUrl('/ebcms/ucenter/admin/user/coin', ['user_id'=>$v['id']])}">金币</a>
+                    <a href="{:$router->buildUrl('/ebcms/ucenter/admin/user/score', ['user_id'=>$v['id']])}">积分</a>
                 </td>
             </tr>
             {/foreach}

@@ -63,11 +63,6 @@ class Login extends Common
 
         if ($code != $session->get('verify_code')) {
             if ($verify_count - 1 <= 0) {
-
-                $log->record(0, '校验次数过多', [
-                    'phone' => $session->delete('verify_phone'),
-                ]);
-
                 $session->delete('verify_count');
                 $session->delete('verify_phone');
                 $session->delete('verify_code');
@@ -100,7 +95,7 @@ class Login extends Common
                 'phone' => $phone,
             ]);
 
-            $log->record($user['id'], '注册');
+            $log->record($user['id'], 'reg');
         }
 
         if ($user['state'] != 1) {
@@ -114,7 +109,7 @@ class Login extends Common
         $session->delete('verify_phone');
         $session->delete('verify_code');
 
-        $session->set('ucenter_user_id', $user['id']);
+        $userModel->login($user['id']);
 
         if ($url = $session->get('login_redirect_uri')) {
             $session->delete('login_redirect_uri');
@@ -122,7 +117,7 @@ class Login extends Common
             $url = $router->buildUrl('/ebcms/ucenter/console/index');
         }
 
-        $log->record($user['id'], '登陆');
+        $log->record($user['id'], 'login');
 
         return $this->success('登陆成功！', $url);
     }
