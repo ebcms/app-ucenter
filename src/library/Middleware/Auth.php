@@ -25,7 +25,6 @@ class Auth implements MiddlewareInterface
             User $userModel,
             Router $router
         ) use ($request, $handler): ResponseInterface {
-            // $userModel->login(1);
             if (!$userModel->getLoginId()) {
                 return $this->failure('请登陆！', $router->buildUrl('/ebcms/ucenter/auth/login', [
                     'redirect_uri' => $this->getRedirectUri()
