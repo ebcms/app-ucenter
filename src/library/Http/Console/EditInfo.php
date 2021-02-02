@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Ebcms\Ucenter\Http\Console;
 
-use App\Ebcms\Ucenter\Model\Log;
 use App\Ebcms\Ucenter\Model\User;
 use Ebcms\Router;
 use Psr\Http\Message\ResponseInterface;
@@ -43,7 +42,6 @@ class EditInfo extends Common
 
     public function post(
         User $userModel,
-        Log $logModel,
         RequestFilter $input
     ): ResponseInterface {
         $update = [];
@@ -61,8 +59,6 @@ class EditInfo extends Common
                 'id' => $userModel->getLoginId(),
             ]);
         }
-
-        $logModel->record($userModel->getLoginId(), 'edit_info', $update);
 
         return $this->success('操作成功！', 'javascript:history.go(-2);');
     }

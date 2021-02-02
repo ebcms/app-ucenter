@@ -36,6 +36,7 @@ CREATE TABLE `prefix_ebcms_user_user` (
   `score` int(10) unsigned NOT NULL COMMENT '积分',
   `coin` int(10) unsigned NOT NULL COMMENT '金币',
   `state` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `salt` char(32) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `phone` (`phone`) USING BTREE,
   UNIQUE KEY `nickname` (`nickname`) USING BTREE

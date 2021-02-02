@@ -9,6 +9,7 @@ use App\Ebcms\Admin\Model\Config as ModelConfig;
 use Ebcms\Config as EbcmsConfig;
 use Ebcms\FormBuilder\Builder;
 use Ebcms\FormBuilder\Col;
+use Ebcms\FormBuilder\Field\Number;
 use Ebcms\FormBuilder\Field\Radio;
 use Ebcms\FormBuilder\Field\Text;
 use Ebcms\FormBuilder\Other\Switchs;
@@ -34,6 +35,7 @@ class Config extends Common
                             'label' => '暂停登陆',
                             'value' => 2,
                         ]]))->set('help', '...');
+                        $res[] = (new Number('自动登陆有效期', 'ebcms[ucenter][auth][expire_time]', $config->get('auth.expire_time@ebcms.ucenter', 0)))->set('help', '单位秒，在该时间内会自动登陆，推荐15天(1296000秒)');
                         return $res;
                     })())->addTab('验证码设置', ...(function () use ($config): array {
                         $res = [];

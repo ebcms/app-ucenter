@@ -90,6 +90,7 @@ class Login extends Common
                     ]
                 ]) + 1),
                 'state' => $config->get('reg.default_state@ebcms.ucenter', 1),
+                'salt' => md5(uniqid() . $phone),
             ]);
             $user = $userModel->get('*', [
                 'phone' => $phone,
@@ -116,8 +117,6 @@ class Login extends Common
         } else {
             $url = $router->buildUrl('/ebcms/ucenter/console/index');
         }
-
-        $log->record($user['id'], 'login');
 
         return $this->success('登陆成功！', $url);
     }
