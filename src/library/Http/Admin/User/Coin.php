@@ -13,12 +13,12 @@ use Ebcms\FormBuilder\Field\Number;
 use Ebcms\FormBuilder\Field\Text;
 use Ebcms\FormBuilder\Field\Textarea;
 use Ebcms\FormBuilder\Row;
-use Ebcms\RequestFilter;
+use Ebcms\Request;
 
 class Coin extends Common
 {
     public function get(
-        RequestFilter $input
+        Request $input
     ) {
 
         $form = new Builder('金币操作');
@@ -36,7 +36,7 @@ class Coin extends Common
     }
 
     public function post(
-        RequestFilter $input,
+        Request $input,
         Log $logModel,
         User $userModel
     ) {
