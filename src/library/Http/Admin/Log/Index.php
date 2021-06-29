@@ -7,14 +7,14 @@ namespace App\Ebcms\Ucenter\Http\Admin\Log;
 use App\Ebcms\Admin\Http\Common;
 use App\Ebcms\Ucenter\Model\Log;
 use Ebcms\Pagination;
-use Ebcms\RequestFilter;
+use Ebcms\Request;
 use Ebcms\Template;
 
 class Index extends Common
 {
     public function get(
         Log $logModel,
-        RequestFilter $input,
+        Request $input,
         Template $template,
         Pagination $pagination
     ) {
