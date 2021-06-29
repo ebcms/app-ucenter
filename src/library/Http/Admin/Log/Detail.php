@@ -6,18 +6,18 @@ namespace App\Ebcms\Ucenter\Http\Admin\Log;
 
 use App\Ebcms\Admin\Http\Common;
 use App\Ebcms\Ucenter\Model\Log;
-use Ebcms\RequestFilter;
+use Ebcms\Request;
 use Ebcms\Template;
 
 class Detail extends Common
 {
     public function get(
         Log $logModel,
-        RequestFilter $input,
+        Request $request,
         Template $template
     ) {
         if (!$log = $logModel->get('*', [
-            'id' => $input->get('id'),
+            'id' => $request->get('id'),
         ])) {
             return $this->failure('不存在！');
         }
