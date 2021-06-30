@@ -13,19 +13,19 @@ use Ebcms\FormBuilder\Field\Number;
 use Ebcms\FormBuilder\Field\Text;
 use Ebcms\FormBuilder\Field\Textarea;
 use Ebcms\FormBuilder\Row;
-use Ebcms\RequestFilter;
+use Ebcms\Request;
 
 class Score extends Common
 {
     public function get(
-        RequestFilter $input
+        Request $request
     ) {
 
         $form = new Builder('金币操作');
         $form->addRow(
             (new Row())->addCol(
                 (new Col('col-md-3'))->addItem(
-                    (new Text('用户ID', 'user_id', $input->get('user_id', 0, ['intval']))),
+                    (new Text('用户ID', 'user_id', $request->get('user_id', 0))),
                     (new Number('金币数量', 'num')),
                     (new Textarea('原因', 'tips')),
                 ),
@@ -36,17 +36,17 @@ class Score extends Common
     }
 
     public function post(
-        RequestFilter $input,
+        Request $request,
         Log $logModel,
         User $userModel
     ) {
-        $score = $input->post('num', 0, ['intval']);
+        $score = $request->post('num', 0);
         if ($score == 0) {
             return $this->failure('参数错误~');
         }
 
         $user = $userModel->get('*', [
-            'id' => $input->post('user_id', 0, ['intval']),
+            'id' => $request->post('user_id', 0),
         ]);
 
         if ($score + $user['score'] < 0) {
@@ -69,7 +69,7 @@ class Score extends Common
         }
         $logModel->record($user['id'], 'score', [
             'score' => $score,
-            'tips' => $input->post('tips'),
+            'tips' => $request->post('tips'),
         ]);
 
         return $this->success('操作成功！', 'javascript:history.go(-2)');

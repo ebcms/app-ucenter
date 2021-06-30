@@ -8,7 +8,7 @@ use App\Ebcms\Ucenter\Model\Log;
 use App\Ebcms\Ucenter\Model\User;
 use Ebcms\Config;
 use Ebcms\Router;
-use Ebcms\RequestFilter;
+use Ebcms\Request;
 use Ebcms\Session;
 use Ebcms\Template;
 
@@ -17,7 +17,7 @@ class Login extends Common
 
     public function get(
         Router $router,
-        RequestFilter $input,
+        Request $request,
         Session $session,
         Config $config,
         Template $template
@@ -27,8 +27,8 @@ class Login extends Common
             return $this->failure('暂时关闭登陆！');
         }
 
-        if ($input->get('redirect_uri')) {
-            $session->set('login_redirect_uri', $input->get('redirect_uri'));
+        if ($request->get('redirect_uri')) {
+            $session->set('login_redirect_uri', $request->get('redirect_uri'));
         }
 
         return $this->html($template->renderFromFile('auth/login@ebcms/ucenter', [
@@ -38,7 +38,7 @@ class Login extends Common
 
     public function post(
         Router $router,
-        RequestFilter $input,
+        Request $request,
         User $userModel,
         Config $config,
         Log $log,
@@ -49,7 +49,7 @@ class Login extends Common
             return $this->failure('暂时关闭登陆！');
         }
 
-        if (!$code = $input->post('code')) {
+        if (!$code = $request->post('code')) {
             return $this->failure('请输入短信校验码！', '', 5);
         }
 

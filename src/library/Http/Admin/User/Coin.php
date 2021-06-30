@@ -18,14 +18,14 @@ use Ebcms\Request;
 class Coin extends Common
 {
     public function get(
-        Request $input
+        Request $request
     ) {
 
         $form = new Builder('金币操作');
         $form->addRow(
             (new Row())->addCol(
                 (new Col('col-md-3'))->addItem(
-                    (new Text('用户ID', 'user_id', $input->get('user_id', 0, ['intval']))),
+                    (new Text('用户ID', 'user_id', $request->get('user_id', 0))),
                     (new Number('金币数量', 'num')),
                     (new Textarea('原因', 'tips')),
                 ),
@@ -36,17 +36,17 @@ class Coin extends Common
     }
 
     public function post(
-        Request $input,
+        Request $request,
         Log $logModel,
         User $userModel
     ) {
-        $coin = $input->post('num', 0, ['intval']);
+        $coin = $request->post('num', 0);
         if ($coin == 0) {
             return $this->failure('参数错误~');
         }
 
         $user = $userModel->get('*', [
-            'id' => $input->post('user_id', 0, ['intval']),
+            'id' => $request->post('user_id', 0),
         ]);
 
         if ($coin + $user['coin'] < 0) {
@@ -69,7 +69,7 @@ class Coin extends Common
         }
         $logModel->record($user['id'], 'coin', [
             'coin' => $coin,
-            'tips' => $input->post('tips'),
+            'tips' => $request->post('tips'),
         ]);
 
         return $this->success('操作成功！', 'javascript:history.go(-2)');

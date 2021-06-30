@@ -6,60 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>会员中心 - Powered by EBCMS</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha256-aAr2Zpq8MZ+YA/D6JtRD3xtrwpEz2IqOS+pWD/7XKIw=" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.js" integrity="sha256-i/Jq6Tc8SbPMBrnvq/sOTfH81hW5emVa4OzZPqhcwtI=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha256-djO3wMl9GeaC/u6K+ic4Uj/LKhRUSlUFcsruzS7v5ms=" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha256-fh8VA992XMpeCZiRuU4xii75UIG6KvHrbUF8yIS/2/4=" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom shadow-sm" style="z-index:2;">
-        <a class="navbar-brand wb" href="{:$router->buildUrl('/ebcms/ucenter/console/index')}">会员中心</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="container-fluid">
+            <a class="navbar-brand wb" href="{:$router->buildUrl('/ebcms/ucenter/console/index')}">会员中心</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto d-block d-lg-none">
-                {foreach $menus as $v}
-                <li class="nav-item">
-                    <a class="nav-link" href="{$v.url}" target="main">{$v.title}</a>
-                </li>
-                {/foreach}
-            </ul>
-            <span class="navbar-text d-none d-lg-block">
-                欢迎你
-            </span>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{$router->buildUrl('/')}" target="_blank">返回首页</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{:$router->buildUrl('/ebcms/ucenter/auth/logout')}">退出</a>
-                </li>
-            </ul>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto d-block d-lg-none">
+                    {foreach $menus as $v}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{$v.url}" target="main">{$v.title}</a>
+                    </li>
+                    {/foreach}
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{:$router->buildUrl('/ebcms/ucenter/auth/logout')}">退出</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{$router->buildUrl('/')}" target="_blank">访问首页</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
     <script>
         $(function() {
-            $("#changepwd").bind('click', function() {
-                var password = prompt('请输入密码：');
-                if (password) {
-                    $.ajax({
-                        type: "POST",
-                        url: "{:$router->buildUrl('/ebcms/admin/auth/password')}",
-                        data: {
-                            password: password,
-                        },
-                        dataType: "JSON",
-                        success: function(response) {
-                            alert(response.message);
-                        },
-                        error: function(context) {
-                            alert(context.statusText);
-                        }
-                    });
-                }
-            });
             $(".navbar-nav li a").on("click", function() {
                 if (!$(this).hasClass('dropdown-toggle')) {
                     $('.navbar-toggler').trigger('click');

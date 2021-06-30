@@ -7,7 +7,7 @@ namespace App\Ebcms\Ucenter\Http\Admin\User;
 use App\Ebcms\Admin\Http\Common;
 use App\Ebcms\Ucenter\Model\User;
 use Ebcms\Pagination;
-use Ebcms\RequestFilter;
+use Ebcms\Request;
 use Ebcms\Template;
 
 class Index extends Common
@@ -15,30 +15,29 @@ class Index extends Common
 
     public function get(
         User $userModel,
-        RequestFilter $input,
+        Request $request,
         Template $template,
         Pagination $pagination
     ) {
         $where = [];
-        if ($input->get('state')) {
-            $where['state'] = $input->get('state');
+        if ($request->get('state')) {
+            $where['state'] = $request->get('state');
         }
-        if ($input->get('user_id')) {
-            $where['id'] = $input->get('user_id');
+        if ($request->get('user_id')) {
+            $where['id'] = $request->get('user_id');
         }
-        if ($input->get('q')) {
+        if ($request->get('q')) {
             $where['OR'] = [
-                'id' => $input->get('q'),
-                'phone[~]' => $input->get('q'),
-                'email[~]' => $input->get('q'),
-                'nickname[~]' => $input->get('q'),
-                'introduction[~]' => $input->get('q'),
+                'id' => $request->get('q'),
+                'phone[~]' => $request->get('q'),
+                'nickname[~]' => $request->get('q'),
+                'introduction[~]' => $request->get('q'),
             ];
         }
         $total = $userModel->count($where);
 
-        $page = $input->get('page') ?: 1;
-        $pagenum = $input->get('pagenum') ?: 20;
+        $page = $request->get('page') ?: 1;
+        $pagenum = $request->get('pagenum') ?: 20;
         $where['LIMIT'] = [($page - 1) * $pagenum, $pagenum];
         $where['ORDER'] = [
             'id' => 'DESC',

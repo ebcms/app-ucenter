@@ -13,7 +13,7 @@ use Ebcms\FormBuilder\Field\Text;
 use Ebcms\FormBuilder\Field\Textarea;
 use Ebcms\FormBuilder\Other\Cover;
 use Ebcms\FormBuilder\Row;
-use Ebcms\RequestFilter;
+use Ebcms\Request;
 
 class EditInfo extends Common
 {
@@ -42,17 +42,17 @@ class EditInfo extends Common
 
     public function post(
         User $userModel,
-        RequestFilter $input
+        Request $request
     ): ResponseInterface {
         $update = [];
-        if ($input->has('post.introduction')) {
-            $update['introduction'] = $input->post('introduction');
+        if ($request->has('post.introduction')) {
+            $update['introduction'] = $request->post('introduction');
         }
-        if ($input->has('post.avatar')) {
-            $update['avatar'] = $input->post('avatar');
+        if ($request->has('post.avatar')) {
+            $update['avatar'] = $request->post('avatar');
         }
-        if (trim($input->post('nickname'))) {
-            $update['nickname'] = mb_substr(trim($input->post('nickname')), 0, 8);
+        if (trim($request->post('nickname'))) {
+            $update['nickname'] = mb_substr(trim($request->post('nickname')), 0, 8);
         }
         if ($update) {
             $userModel->update($update, [

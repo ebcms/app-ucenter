@@ -15,17 +15,17 @@ use Ebcms\FormBuilder\Field\Text;
 use Ebcms\FormBuilder\Field\Textarea;
 use Ebcms\FormBuilder\Other\Cover;
 use Ebcms\FormBuilder\Row;
-use Ebcms\RequestFilter;
+use Ebcms\Request;
 
 class Edit extends Common
 {
     public function get(
         Router $router,
         User $userModel,
-        RequestFilter $requestFilter
+        Request $request
     ) {
         $user = $userModel->get('*', [
-            'id' => $requestFilter->get('id', 0, ['intval']),
+            'id' => $request->get('id', 0),
         ]);
 
         $form = new Builder('编辑用户信息');
@@ -58,14 +58,14 @@ class Edit extends Common
     }
 
     public function post(
-        RequestFilter $requestFilter,
+        Request $request,
         User $userModel
     ) {
         $user = $userModel->get('*', [
-            'id' => $requestFilter->post('id', 0, ['intval']),
+            'id' => $request->post('id', 0),
         ]);
 
-        $update = array_intersect_key($requestFilter->post(), [
+        $update = array_intersect_key($request->post(), [
             'avatar' => '',
             'nickname' => '',
             'introduction' => '',

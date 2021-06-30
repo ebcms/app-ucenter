@@ -6,16 +6,16 @@ namespace App\Ebcms\Ucenter\Http\Admin;
 
 use App\Ebcms\Admin\Http\Common;
 use App\Ebcms\Ucenter\Model\Log;
-use Ebcms\RequestFilter;
+use Ebcms\Request;
 
 class Stats extends Common
 {
 
     public function get(
         Log $logModel,
-        RequestFilter $input
+        Request $request
     ) {
-        $month = date('Y-m', strtotime($input->get('month', date('Y-m'))));
+        $month = date('Y-m', strtotime($request->get('month', date('Y-m'))));
 
         $reg = [];
         $login = [];

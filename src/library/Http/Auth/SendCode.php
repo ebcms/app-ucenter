@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Ebcms\Ucenter\Http\Auth;
 
 use Ebcms\Config;
-use Ebcms\RequestFilter;
+use Ebcms\Request;
 use Ebcms\Session;
 
 class SendCode extends Common
@@ -13,10 +13,10 @@ class SendCode extends Common
 
     public function post(
         Config $config,
-        RequestFilter $input,
+        Request $request,
         Session $session
     ) {
-        $captcha = $input->post('captcha');
+        $captcha = $request->post('captcha');
         if (!$captcha || $captcha != $session->get('ucenter_auth_captcha')) {
             return $this->failure('验证码不正确！');
         }
@@ -27,7 +27,7 @@ class SendCode extends Common
         }
 
         $code = random_int(100000, 999999);
-        $phone = $input->post('phone');
+        $phone = $request->post('phone');
 
         if (!$handler = $config->get('sms.handler@ebcms.ucenter')) {
             return $this->failure('未配置校验码发送方式！');

@@ -2,22 +2,28 @@
 <?php $cur = 'log'; ?>
 {include admin/common/nav@ebcms/ucenter}
 <div class="my-4">
-    <form id="form_filter" class="form-inline" action="{:$router->buildUrl('/ebcms/ucenter/admin/log/index')}" method="GET">
+    <form id="form_filter" class="row gy-2 gx-3 align-items-center mb-3" action="{:$router->buildUrl('/ebcms/ucenter/admin/log/index')}" method="GET">
 
-        <label class="mr-2">分页大小</label>
-        <select class="custom-select" name="page_num" onchange="document.getElementById('form_filter').submit();">
-            <option {if $input->get('page_num')=='20' }selected{/if} value="20">20</option>
-            <option {if $input->get('page_num')=='50' }selected{/if} value="50">50</option>
-            <option {if $input->get('page_num')=='100' }selected{/if} value="100">100</option>
-            <option {if $input->get('page_num')=='500' }selected{/if} value="500">500</option>
-        </select>
+        <div class="col-auto">
+            <label class="visually-hidden">分页大小</label>
+            <select class="form-select" name="page_num" onchange="document.getElementById('form_filter').submit();">
+                <option {if $request->get('page_num')=='20' }selected{/if} value="20">20</option>
+                <option {if $request->get('page_num')=='50' }selected{/if} value="50">50</option>
+                <option {if $request->get('page_num')=='100' }selected{/if} value="100">100</option>
+                <option {if $request->get('page_num')=='500' }selected{/if} value="500">500</option>
+            </select>
+        </div>
 
-        <label class="mx-2">用户ID</label>
-        <input type="search" class="form-control" name="user_id" value="{:$input->get('user_id')}" onchange="document.getElementById('form_filter').submit();">
+        <div class="col-auto">
+            <label class="visually-hidden">用户ID</label>
+            <input type="search" class="form-control" placeholder="用户ID" name="user_id" value="{:$request->get('user_id')}" onchange="document.getElementById('form_filter').submit();">
+        </div>
 
-        <label class="mx-2">日志类型</label>
-        <input type="search" class="form-control" name="type" value="{:$input->get('type')}" onchange="document.getElementById('form_filter').submit();">
-        <input type="hidden" name="page" value="1">
+        <div class="col-auto">
+            <label class="visually-hidden">日志类型</label>
+            <input type="hidden" name="page" value="1">
+            <input type="search" class="form-control" placeholder="日志类型" name="type" value="{:$request->get('type')}" onchange="document.getElementById('form_filter').submit();">
+        </div>
     </form>
 </div>
 <div class="table-responsive my-4">

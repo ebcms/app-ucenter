@@ -14,21 +14,21 @@ class Index extends Common
 {
     public function get(
         Log $logModel,
-        Request $input,
+        Request $request,
         Template $template,
         Pagination $pagination
     ) {
         $where = [];
-        if ($input->get('user_id')) {
-            $where['user_id'] = $input->get('user_id');
+        if ($request->get('user_id')) {
+            $where['user_id'] = $request->get('user_id');
         }
-        if ($input->get('type')) {
-            $where['type'] = $input->get('type');
+        if ($request->get('type')) {
+            $where['type'] = $request->get('type');
         }
         $total = $logModel->count($where);
 
-        $page = $input->get('page') ?: 1;
-        $pagenum = $input->get('pagenum') ?: 20;
+        $page = $request->get('page') ?: 1;
+        $pagenum = $request->get('pagenum') ?: 20;
         $where['LIMIT'] = [($page - 1) * $pagenum, $pagenum];
         $where['ORDER'] = [
             'id' => 'DESC',
