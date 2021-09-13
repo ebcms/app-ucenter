@@ -35,18 +35,11 @@ class Edit extends Common
                     (new Hidden('id', $user['id'])),
                     (new Cover('头像', 'avatar', $user['avatar'], $router->buildUrl('/ebcms/admin/upload'))),
                     (new Input('电话号码', 'phone', $user['phone'])),
-                    (new Radio('状态', 'state', $user['state']))->set('options', [
-                        [
-                            'label' => '正常',
-                            'value' => 1,
-                        ], [
-                            'label' => '禁止登陆',
-                            'value' => 2,
-                        ], [
-                            'label' => '待审核',
-                            'value' => 99,
-                        ],
-                    ])
+                    (new Radio('状态', 'state', $user['state'], [
+                        '1' => '正常',
+                        '2' => '禁止登陆',
+                        '99' => '待审核',
+                    ]))
                 ),
                 (new Col('col-md-9'))->addItem(
                     (new Input('昵称', 'nickname', $user['nickname'])),
