@@ -9,9 +9,9 @@ use Ebcms\Router;
 use Psr\Http\Message\ResponseInterface;
 use Ebcms\FormBuilder\Builder;
 use Ebcms\FormBuilder\Col;
-use Ebcms\FormBuilder\Field\Text;
+use Ebcms\FormBuilder\Field\Cover;
+use Ebcms\FormBuilder\Field\Input;
 use Ebcms\FormBuilder\Field\Textarea;
-use Ebcms\FormBuilder\Other\Cover;
 use Ebcms\FormBuilder\Row;
 use Ebcms\Request;
 
@@ -32,7 +32,7 @@ class EditInfo extends Common
                     (new Cover('头像', 'avatar', $my['avatar'], $router->buildUrl('/ebcms/ucenter/console/upload')))
                 ),
                 (new Col('col-md-9'))->addItem(
-                    (new Text('昵称', 'nickname', $my['nickname'])),
+                    (new Input('昵称', 'nickname', $my['nickname'])),
                     (new Textarea('个人简介', 'introduction', $my['introduction']))
                 )
             )

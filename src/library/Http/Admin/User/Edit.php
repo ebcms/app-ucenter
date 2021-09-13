@@ -9,11 +9,11 @@ use App\Ebcms\Ucenter\Model\User;
 use Ebcms\Router;
 use Ebcms\FormBuilder\Builder;
 use Ebcms\FormBuilder\Col;
+use Ebcms\FormBuilder\Field\Cover;
 use Ebcms\FormBuilder\Field\Hidden;
+use Ebcms\FormBuilder\Field\Input;
 use Ebcms\FormBuilder\Field\Radio;
-use Ebcms\FormBuilder\Field\Text;
 use Ebcms\FormBuilder\Field\Textarea;
-use Ebcms\FormBuilder\Other\Cover;
 use Ebcms\FormBuilder\Row;
 use Ebcms\Request;
 
@@ -34,7 +34,7 @@ class Edit extends Common
                 (new Col('col-md-3'))->addItem(
                     (new Hidden('id', $user['id'])),
                     (new Cover('头像', 'avatar', $user['avatar'], $router->buildUrl('/ebcms/admin/upload'))),
-                    (new Text('电话号码', 'phone', $user['phone'])),
+                    (new Input('电话号码', 'phone', $user['phone'])),
                     (new Radio('状态', 'state', $user['state']))->set('options', [
                         [
                             'label' => '正常',
@@ -49,7 +49,7 @@ class Edit extends Common
                     ])
                 ),
                 (new Col('col-md-9'))->addItem(
-                    (new Text('昵称', 'nickname', $user['nickname'])),
+                    (new Input('昵称', 'nickname', $user['nickname'])),
                     (new Textarea('个人说明', 'introduction', $user['introduction']))
                 )
             )

@@ -9,8 +9,7 @@ use App\Ebcms\Ucenter\Model\Log;
 use App\Ebcms\Ucenter\Model\User;
 use Ebcms\FormBuilder\Builder;
 use Ebcms\FormBuilder\Col;
-use Ebcms\FormBuilder\Field\Number;
-use Ebcms\FormBuilder\Field\Text;
+use Ebcms\FormBuilder\Field\Input;
 use Ebcms\FormBuilder\Field\Textarea;
 use Ebcms\FormBuilder\Row;
 use Ebcms\Request;
@@ -25,9 +24,9 @@ class Coin extends Common
         $form->addRow(
             (new Row())->addCol(
                 (new Col('col-md-3'))->addItem(
-                    (new Text('用户ID', 'user_id', $request->get('user_id', 0))),
-                    (new Number('金币数量', 'num')),
-                    (new Textarea('原因', 'tips')),
+                    (new Input('用户ID', 'user_id', $request->get('user_id', 0))),
+                    (new Input('金币数量', 'num', 0, 'number')),
+                    (new Textarea('原因', 'tips'))
                 ),
                 (new Col('col-md-9'))->addItem()
             )
