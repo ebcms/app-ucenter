@@ -68,7 +68,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="captchav">验证码</label>
-                    <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group mb-2 me-sm-2">
                         <input type="text" name="captcha" id="captchav" class="form-control form-control-lg" autocomplete="off" required>
                         <div class="input-group-append">
                             <img id="captcha" style="vertical-align: middle;cursor: pointer;height: 48px;" class="rounded-right" onclick="this.src = '<?php echo $router->buildUrl('/ebcms/ucenter/auth/captcha'); ?>?time=' + (new Date()).getTime();">
