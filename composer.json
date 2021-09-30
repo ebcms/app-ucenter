@@ -4,12 +4,8 @@
     "type": "ebcms-app",
     "license": "MIT",
     "require": {
-        "ebcms/framework": "^2.0",
         "ebcms/admin": "^2.0",
-        "ebcms/request": "^1.0",
-        "ebcms/session": "^1.0",
         "ebcms/pagination": "^1.0",
-        "ebcms/template": "^2.0",
         "ebcms/database": "^2.0"
     },
     "autoload": {
