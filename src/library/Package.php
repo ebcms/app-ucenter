@@ -5,31 +5,28 @@ declare(strict_types=1);
 namespace App\Ebcms\Ucenter;
 
 use Ebcms\App;
-use Ebcms\Database\Db;
+use PDO;
 
 class Package
 {
 
     public static function postPackageInstall()
     {
-        App::getInstance(getcwd())->execute(function (
-            App $app,
-            Db $db
-        ) {
-            $sql = self::getInstallSql();
-            $sqls = array_filter(explode(";" . PHP_EOL, $sql));
-            $prefix = 'prefix_';
-            $cfg_file = $app->getAppPath() . '/config/database.php';
-            if (file_exists($cfg_file)) {
-                $cfg = (array)include $cfg_file;
-                if (isset($cfg['master']['prefix'])) {
-                    $prefix = $cfg['master']['prefix'];
-                }
-            }
-            foreach ($sqls as $sql) {
-                $db->master()->exec(str_replace('prefix_', $prefix, $sql . ';'));
-            }
-        });
+        $sql = self::getInstallSql();
+        $sqls = array_filter(explode(";" . PHP_EOL, $sql));
+
+        $prefix = 'prefix_';
+        $cfg_file = App::getInstance(getcwd())->getAppPath() . '/config/database.php';
+        $cfg = (array)include $cfg_file;
+        if (isset($cfg['master']['prefix'])) {
+            $prefix = $cfg['master']['prefix'];
+        }
+
+        $dbh = new PDO("{$cfg['master']['database_type']}:host={$cfg['master']['server']};dbname={$cfg['master']['database_name']}", $cfg['master']['username'], $cfg['master']['password']);
+
+        foreach ($sqls as $sql) {
+            $dbh->exec(str_replace('prefix_', $prefix, $sql . ';'));
+        }
     }
 
     public static function postPackageUpdate()
@@ -38,35 +35,32 @@ class Package
 
     public static function prePackageUninstall()
     {
-        App::getInstance(getcwd())->execute(function (
-            App $app,
-            Db $db
-        ) {
-            $sql = '';
-            fwrite(STDOUT, "是否删除数据库？[yes]：");
-            switch (trim((string) fgets(STDIN))) {
-                case '':
-                case 'yes':
-                    fwrite(STDOUT, "删除数据库\n");
-                    $sql .= PHP_EOL . self::getUninstallSql();
-                    break;
+        $sql = '';
+        fwrite(STDOUT, "是否删除数据库？[yes]：");
+        switch (trim((string) fgets(STDIN))) {
+            case '':
+            case 'yes':
+                fwrite(STDOUT, "删除数据库\n");
+                $sql .= PHP_EOL . self::getUninstallSql();
+                break;
 
-                default:
-                    break;
-            }
-            $sqls = array_filter(explode(";" . PHP_EOL, $sql));
-            $prefix = 'prefix_';
-            $cfg_file = $app->getAppPath() . '/config/database.php';
-            if (file_exists($cfg_file)) {
-                $cfg = (array)include $cfg_file;
-                if (isset($cfg['master']['prefix'])) {
-                    $prefix = $cfg['master']['prefix'];
-                }
-            }
-            foreach ($sqls as $sql) {
-                $db->master()->exec(str_replace('prefix_', $prefix, $sql . ';'));
-            }
-        });
+            default:
+                break;
+        }
+        $sqls = array_filter(explode(";" . PHP_EOL, $sql));
+
+        $prefix = 'prefix_';
+        $cfg_file = App::getInstance(getcwd())->getAppPath() . '/config/database.php';
+        $cfg = (array)include $cfg_file;
+        if (isset($cfg['master']['prefix'])) {
+            $prefix = $cfg['master']['prefix'];
+        }
+
+        $dbh = new PDO("{$cfg['master']['database_type']}:host={$cfg['master']['server']};dbname={$cfg['master']['database_name']}", $cfg['master']['username'], $cfg['master']['password']);
+
+        foreach ($sqls as $sql) {
+            $dbh->exec(str_replace('prefix_', $prefix, $sql . ';'));
+        }
     }
 
     private static function getInstallSql(): string
