@@ -2,7 +2,7 @@
     "name": "ebcms/ucenter",
     "description": "user ucenter",
     "type": "ebcms-app",
-    "license": "MIT",
+    "license": "Apache-2.0",
     "require": {
         "ebcms/admin": "^2.0",
         "ebcms/database": "^2.0"
