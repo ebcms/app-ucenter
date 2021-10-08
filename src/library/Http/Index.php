@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Ebcms\Ucenter\Http\Admin;
+namespace App\Ebcms\Ucenter\Http;
 
 use App\Ebcms\Admin\Http\Common;
 use App\Ebcms\Ucenter\Model\User;
@@ -17,6 +17,6 @@ class Index extends Common
     ) {
         $data = [];
         $data['total'] = $userModel->count();
-        return $this->html($template->renderFromFile('admin/index@ebcms/ucenter', $data));
+        return $this->html($template->renderFromFile('index@ebcms/ucenter', $data));
     }
 }

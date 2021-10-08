@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Ebcms\Ucenter\Http\Admin\User;
+namespace App\Ebcms\Ucenter\Http\User;
 
 use App\Ebcms\Admin\Http\Common;
 use App\Ebcms\Ucenter\Model\Log;
@@ -14,7 +14,7 @@ use Ebcms\FormBuilder\Field\Textarea;
 use Ebcms\FormBuilder\Row;
 use Ebcms\Request;
 
-class Score extends Common
+class Coin extends Common
 {
     public function get(
         Request $request
@@ -39,8 +39,8 @@ class Score extends Common
         Log $logModel,
         User $userModel
     ) {
-        $score = $request->post('num', 0);
-        if ($score == 0) {
+        $coin = $request->post('num', 0);
+        if ($coin == 0) {
             return $this->failure('参数错误~');
         }
 
@@ -48,26 +48,26 @@ class Score extends Common
             'id' => $request->post('user_id', 0),
         ]);
 
-        if ($score + $user['score'] < 0) {
+        if ($coin + $user['coin'] < 0) {
             return $this->failure('数量不足！');
         }
 
 
-        if ($score > 0) {
+        if ($coin > 0) {
             $userModel->update([
-                'score[+]' => $score,
+                'coin[+]' => $coin,
             ], [
                 'id' => $user['id'],
             ]);
-        } elseif ($score < 0) {
+        } elseif ($coin < 0) {
             $userModel->update([
-                'score[-]' => abs($score),
+                'coin[-]' => abs($coin),
             ], [
                 'id' => $user['id'],
             ]);
         }
-        $logModel->record($user['id'], 'score', [
-            'score' => $score,
+        $logModel->record($user['id'], 'coin', [
+            'coin' => $coin,
             'tips' => $request->post('tips'),
         ]);
 

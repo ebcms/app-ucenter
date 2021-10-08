@@ -5,7 +5,6 @@
     "license": "MIT",
     "require": {
         "ebcms/admin": "^2.0",
-        "ebcms/pagination": "^1.0",
         "ebcms/database": "^2.0"
     },
     "autoload": {

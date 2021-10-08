@@ -1,8 +1,8 @@
 {include common/header@ebcms/admin}
 <?php $cur = 'user'; ?>
-{include admin/common/nav@ebcms/ucenter}
+{include common/nav@ebcms/ucenter}
 <div class="my-4">
-    <form id="form_filter" class="row row-cols-auto gy-2 gx-3 align-items-center mb-3" action="{:$router->buildUrl('/ebcms/ucenter/admin/user/index')}" method="GET">
+    <form id="form_filter" class="row row-cols-auto gy-2 gx-3 align-items-center mb-3" action="{:$router->buildUrl('/ebcms/ucenter/user/index')}" method="GET">
 
         <div class="col">
             <label class="visually-hidden">分页大小</label>
@@ -38,7 +38,6 @@
                 <th>昵称</th>
                 <th>电话</th>
                 <th>金币</th>
-                <th>积分</th>
                 <th>状态</th>
                 <th>操作</th>
             </tr>
@@ -50,13 +49,11 @@
                 <td>{$v.nickname}</td>
                 <td>{$v.phone}</td>
                 <td>{$v.coin}</td>
-                <td>{$v.score}</td>
                 <td>{$v.state}</td>
                 <td>
-                    <a href="{:$router->buildUrl('/ebcms/ucenter/admin/user/edit', ['id'=>$v['id']])}">编辑</a>
-                    <a href="{:$router->buildUrl('/ebcms/ucenter/admin/log/index', ['user_id'=>$v['id']])}">日志</a>
-                    <a href="{:$router->buildUrl('/ebcms/ucenter/admin/user/coin', ['user_id'=>$v['id']])}">金币</a>
-                    <a href="{:$router->buildUrl('/ebcms/ucenter/admin/user/score', ['user_id'=>$v['id']])}">积分</a>
+                    <a href="{:$router->buildUrl('/ebcms/ucenter/user/edit', ['id'=>$v['id']])}">编辑</a>
+                    <a href="{:$router->buildUrl('/ebcms/ucenter/log/index', ['user_id'=>$v['id']])}">日志</a>
+                    <a href="{:$router->buildUrl('/ebcms/ucenter/user/coin', ['user_id'=>$v['id']])}">金币</a>
                 </td>
             </tr>
             {/foreach}
@@ -71,7 +68,7 @@
         {elseif isset($v['current'])}
         <li class="page-item active"><a class="page-link" href="javascript:void(0);">{$v.page}</a></li>
         {else}
-        <li class="page-item"><a class="page-link" href="{:$router->buildUrl('/ebcms/ucenter/admin/user/index')}?page={$v.page}">{$v.page}</a></li>
+        <li class="page-item"><a class="page-link" href="{:$router->buildUrl('/ebcms/ucenter/user/index')}?page={$v.page}">{$v.page}</a></li>
         {/if}
         {/foreach}
     </ul>

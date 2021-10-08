@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Ebcms\Ucenter\Http\Admin;
+namespace App\Ebcms\Ucenter\Http;
 
 use App\Ebcms\Admin\Http\Common;
 use App\Ebcms\Ucenter\Model\Log;

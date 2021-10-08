@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Ebcms\Ucenter\Http\Admin\User;
+namespace App\Ebcms\Ucenter\Http\User;
 
 use App\Ebcms\Admin\Http\Common;
 use App\Ebcms\Ucenter\Model\User;
@@ -43,7 +43,7 @@ class Index extends Common
             'id' => 'DESC',
         ];
 
-        return $this->html($template->renderFromFile('admin/user/index@ebcms/ucenter', [
+        return $this->html($template->renderFromFile('user/index@ebcms/ucenter', [
             'users' => $userModel->select('*', $where),
             'total' => $total,
             'pages' => $pagination->render($page, $total, $pagenum),

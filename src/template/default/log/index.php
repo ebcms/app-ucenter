@@ -1,8 +1,8 @@
 {include common/header@ebcms/admin}
 <?php $cur = 'log'; ?>
-{include admin/common/nav@ebcms/ucenter}
+{include common/nav@ebcms/ucenter}
 <div class="my-4">
-    <form id="form_filter" class="row gy-2 gx-3 align-items-center mb-3" action="{:$router->buildUrl('/ebcms/ucenter/admin/log/index')}" method="GET">
+    <form id="form_filter" class="row gy-2 gx-3 align-items-center mb-3" action="{:$router->buildUrl('/ebcms/ucenter/log/index')}" method="GET">
 
         <div class="col-auto">
             <label class="visually-hidden">分页大小</label>
@@ -42,12 +42,12 @@
             {foreach $logs as $v}
             <tr>
                 <td>{$v.id}</td>
-                <td><a href="{:$router->buildUrl('/ebcms/ucenter/admin/user/index', ['user_id'=>$v['user_id']])}">{$v.user_id}</a></td>
+                <td><a href="{:$router->buildUrl('/ebcms/ucenter/user/index', ['user_id'=>$v['user_id']])}">{$v.user_id}</a></td>
                 <td>{$v.type}</td>
                 <td>{$v['ip']}</td>
                 <td class="text-nowrap">{:date('Y-m-d H:i:s', $v['record_time'])}</td>
                 <td>
-                    <a href="javascript:M.open({url:'{:$router->buildUrl('/ebcms/ucenter/admin/log/detail', ['id'=>$v['id']])}', title:'日志详情'});">详情</a>
+                    <a href="javascript:M.open({url:'{:$router->buildUrl('/ebcms/ucenter/log/detail', ['id'=>$v['id']])}', title:'日志详情'});">详情</a>
                 </td>
             </tr>
             {/foreach}
@@ -62,7 +62,7 @@
         {elseif isset($v['current'])}
         <li class="page-item active"><a class="page-link" href="javascript:void(0);">{$v.page}</a></li>
         {else}
-        <li class="page-item"><a class="page-link" href="{:$router->buildUrl('/ebcms/ucenter/admin/user/index')}?page={$v.page}">{$v.page}</a></li>
+        <li class="page-item"><a class="page-link" href="{:$router->buildUrl('/ebcms/ucenter/user/index')}?page={$v.page}">{$v.page}</a></li>
         {/if}
         {/foreach}
     </ul>

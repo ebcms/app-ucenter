@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Ebcms\Ucenter\Http\Admin\Log;
+namespace App\Ebcms\Ucenter\Http\Log;
 
 use App\Ebcms\Admin\Http\Common;
 use App\Ebcms\Ucenter\Model\Log;
@@ -34,7 +34,7 @@ class Index extends Common
             'id' => 'DESC',
         ];
 
-        return $template->renderFromFile('admin/log/index@ebcms/ucenter', [
+        return $template->renderFromFile('log/index@ebcms/ucenter', [
             'logs' => $logModel->select('*', $where),
             'total' => $total,
             'pages' => $pagination->render($page, $total, $pagenum),

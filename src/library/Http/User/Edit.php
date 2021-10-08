@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Ebcms\Ucenter\Http\Admin\User;
+namespace App\Ebcms\Ucenter\Http\User;
 
 use App\Ebcms\Admin\Http\Common;
 use App\Ebcms\Ucenter\Model\User;

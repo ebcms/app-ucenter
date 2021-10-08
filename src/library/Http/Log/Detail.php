@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Ebcms\Ucenter\Http\Admin\Log;
+namespace App\Ebcms\Ucenter\Http\Log;
 
 use App\Ebcms\Admin\Http\Common;
 use App\Ebcms\Ucenter\Model\Log;
@@ -22,7 +22,7 @@ class Detail extends Common
             return $this->failure('不存在！');
         }
 
-        return $template->renderFromFile('admin/log/detail@ebcms/ucenter', [
+        return $template->renderFromFile('log/detail@ebcms/ucenter', [
             'log' => $log,
         ]);
     }
