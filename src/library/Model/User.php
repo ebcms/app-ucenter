@@ -49,7 +49,7 @@ class User extends Model
     {
         $this->getLog()->record($this->getLoginId(), 'logout');
         setcookie($this->getTokenKey(), '', time() - 3600, '/');
-        $this->getSession()->delete('ucenter_user_id');
+        $this->getSession()->unset('ucenter_user_id');
         return true;
     }
 
